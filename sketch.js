@@ -34,6 +34,7 @@ function preload() {
   nitkImg = loadImage("NITK1.png");
   nextImg = loadImage("next.png");
   next1Img = loadImage("next1.png")
+  next3Img = loadImage("next3.png")
 
 }
 
@@ -86,6 +87,11 @@ function setup() {
   next1.addImage(next1Img);
   next1.scale = 0.3;
 
+  next3 = createSprite(400, 550, 50, 50);
+  next3.addImage(next3Img);
+  next3.scale = 0.3;
+  
+  
 
 }
 
@@ -101,6 +107,8 @@ function draw() {
     start.visible = true;
     next.visible = false;
     next1.visible = false;
+    next3.visible = false;
+
   }
 
   if (mousePressedOver(start) && state === 0) {
@@ -116,6 +124,7 @@ function draw() {
     start.visible = false;
     next.visible = true;
     next1.visible = false;
+    next3.visible = false;
 
 
     textSize(20);
@@ -155,8 +164,9 @@ function draw() {
     latitude2.hide();
     longitude1.hide();
     longitude2.hide();
-    next.visible = false;
+    next.visible= false;
     next1.visible = true;
+    
 
     textSize(20);
     fill("black")
@@ -196,9 +206,53 @@ function draw() {
     lt.remove();
     ht.remove();
     sc.remove();
+    textSize(18);
+    fill("black")
+    next3.visible = true;
+    
+    textFont("arial");
+    text("Distance between two coordinates-", 80, 100);
+    textSize(18);
+    textFont("arial");
+    text("Trench details", 80, 150);
+    textSize(15);
+    textFont("arial");
+    text("Height", 80, 220);
+    textSize(15);
+    textFont("arial");
+    text("Width", 80, 270);
+    textSize(15);
+    textFont("arial");
+    text("Width", 80, 270);
+    textSize(18);
+    textFont("arial");
+    text("trench design image", 80, 300);
+    
+    
+   
 
 
   }
+  if (mousePressedOver(next3)) {
+    
+    lt.remove('00');
+
+    state = 4;
+
+  }
+  if (state === 4)
+  {
+
+    next3.remove();
+    fill("black");
+    textSize(18);
+    textFont("arial");
+    text("estimated quantities", 80, 100);
+    
+
+  }
+
+
 
 
   drawSprites();
