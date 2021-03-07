@@ -17,15 +17,13 @@ function distanceCalculator(long1input, long2input, lat1input, lat2input) {
   var dlon = long2 - long1
   var dlat = lat2 - lat1
 
-  var a = Math.pow(Math.sin(dlat / 2), 2)
-    + Math.cos(lat1) * Math.cos(lat2)
-    * Math.pow(Math.sin(dlon / 2), 2);
+  var a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
 
   var c = 2 * Math.asin(Math.sqrt(a));
 
   var r = 6371;
 
-  return c * r;
+  return c * r* 1000;
 }
 
 function preload() {
@@ -53,20 +51,19 @@ function setup() {
   nitk.scale = 0.5;
 
 
-  latitude1 = createInput(lat1input);
-  console.log(long1input);
-
-  longitude1 = createInput(long1input);
-  latitude2 = createInput(lat2input);
-  longitude2 = createInput(long2input);
+  latitude1 = createInput();
+  longitude1 = createInput();
+  latitude2 = createInput();
+  longitude2 = createInput();
 
 
   lt = createSelect();
   ht = createSelect();
-  sc = createSelect();
+  sc = createSelect('select');
 
   lt.option('00');
   lt.option('02');
+
 
   ht.option('00');
   ht.option('01');
@@ -74,8 +71,6 @@ function setup() {
   ht.option('04');
 
   sc.option('01');
-
-
 
   next = createSprite(150, 500, 50, 50);
   next.addImage(nextImg);
@@ -87,16 +82,21 @@ function setup() {
   next1.addImage(next1Img);
   next1.scale = 0.3;
 
-  next3 = createSprite(400, 550, 50, 50);
+  next3 = createSprite(400, 50, 50, 50);
   next3.addImage(next3Img);
   next3.scale = 0.3;
-  
-  
 
+}
+
+function mySelectEvent() {
+  item = lt.value();
+  console.log(item)
 }
 
 function draw() {
   background(192, 192, 192)
+
+
   if (state === 0) {
     fill("black")
     textSize(20);
@@ -150,9 +150,15 @@ function draw() {
   }
 
   if (mousePressedOver(next) && state === 1) {
-    console.log(long1input)
-    //var x = distanceCalculator(long1input,long2input,lat1input,lat2input)
-    var x = distanceCalculator(10, 20, 30, 40);
+    lat1input = latitude1.value();
+    lat2input = latitude2.value();
+    long1input = longitude1.value();
+    long2input = longitude2.value();
+    console.log(lat1input);
+    console.log(long1input);
+    console.log(lat2input);
+    console.log(long2input);
+    var x = distanceCalculator(long1input,long2input,lat1input,lat2input);
     console.log(x);
     state = 2;
 
@@ -185,23 +191,34 @@ function draw() {
     ht.position(200, 245)
     sc.position(200, 275)
 
-
     if (mousePressedOver(next1)) {
       console.log(next1);
       console.log(lt);
       console.log(ht);
       console.log(sc);
       lt.remove('00');
-
+  
+  
+       
+      item1 = lt.value();
+      console.log(item1);
+      item2 = ht.value();
+      console.log(item2);
+      item3 = sc.value();
+      console.log(item3);
+  
+  
       state = 3;
-
     }
+    
   }
 
+  
 
 
 
   if (state === 3) {
+    console.log("yess its state 3")
     next1.remove();
     lt.remove();
     ht.remove();
@@ -233,6 +250,7 @@ function draw() {
 
 
   }
+
   if (mousePressedOver(next3)) {
     
     lt.remove('00');
@@ -240,6 +258,7 @@ function draw() {
     state = 4;
 
   }
+
   if (state === 4)
   {
 
