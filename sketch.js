@@ -36,6 +36,14 @@ function preload() {
   next1Img = loadImage("next1.png")
   next3Img = loadImage("next3.png")
 
+  type1Im = loadImage("type1.jpg")
+  type1aIm = loadImage("type1a.jpg")
+  type1bIm = loadImage("type1b.jpg")
+  type2Im = loadImage("type2.jpg")
+  type3Im = loadImage("type3.jpg")
+  type4Im = loadImage("type4.jpg")
+
+
 }
 
 function setup() {
@@ -89,11 +97,6 @@ function setup() {
   next3.addImage(next3Img);
   next3.scale = 0.3;
 
-}
-
-function mySelectEvent() {
-  item = lt.value();
-  console.log(item)
 }
 
 function draw() {
@@ -219,18 +222,30 @@ function draw() {
       width = 450;
       depth = 1125;
       goToNext = 1
+      typeImage = type1Im;
+      EIE = 0.51;
+      SF = 0.08;
+      EIF = 0.43;
+
      }
      else if(item1 ==2 && item2 ==0 && item3==1){
       console.log("Type-1 a")
       width = 450;
       depth = 850;
       goToNext = 1
+      typeImage = type1aIm;
+      EIE = 0.38;
+      SF = 0.12;
+      EIF = 0.26;
      }
      else if(item1 ==2 && item2 ==1 && item3==1){
       console.log("Type-1 b")
       width = 450;
       depth = 1125;
-      
+      typeImage = type1bIm;
+      EIE = 0.51;
+      SF = 0.08;
+      EIF = 0.43;
       goToNext = 1
      }
      else if(item1 ==0 && item2 ==3 && item3==1){
@@ -238,18 +253,30 @@ function draw() {
       width = 650;
       depth = 1125;
       goToNext = 1
+      typeImage = type2Im;
+      EIE = 0.73;
+      SF = 0.16;
+      EIF = 0.57;
      }
      else if(item1 ==0 && item2 ==4 && item3==1){
       console.log("Type-3")
       width = 750;
       depth = 1125;
-      goToNext = 1
+      typeImage = type3Im;
+      goToNext = 1;
+      EIE = 0.84;
+      SF = 0.19;
+      EIF = 0.66;
      }
      else if(item1 ==0 && item2 ==0 && item3==1){
       console.log("Type-4")
       width = 450;
       depth = 850;
-      goToNext = 1
+      typeImage = type4Im;
+      goToNext = 1;
+      EIE = 0.38;
+      SF = 0;
+      EIF = 0.38;
      }
      else {
        goToNext = 0;
@@ -283,7 +310,8 @@ function draw() {
     fill("red")
     textFont("bold");
     text("Trench details", 80, 150);
-    text("Trench Design Image", 80, 240);
+    text("estimated quantities", 80, 260);
+    
     fill("black")
     textSize(15);
     textFont("arial");
@@ -291,6 +319,16 @@ function draw() {
     text(depth, 130,180);
     text("Width", 80, 200);
     text(width, 130,200);
+    
+   
+    text("Earthwork in excavation", 80, 280)
+    text(distance*EIE, 330,280)
+    text("Sand Filling", 80, 300)
+    text(distance*SF, 330,300)
+    text("Earthwork in Filling", 80,320)
+    text(distance*EIF, 330,320)
+
+    
   }
 
   if (mousePressedOver(next3)) {
@@ -305,14 +343,23 @@ function draw() {
   {
 
     next3.remove();
-    fill("black");
-    textSize(18);
-    textFont("arial");
-    text("estimated quantities", 80, 100);
+    fill("red")
+    textSize(20);
+    textFont("bold");
+    text("Trench Design Image", 80, 50);
+    IMG = createSprite(280,300,100,100)
+    IMG.addImage(typeImage)
+    
     
 
   }
 
 
   drawSprites();
+}
+
+function quantitiesCalculator() {
+ 
+
+  return c * r* 1000;
 }
