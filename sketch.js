@@ -5,7 +5,9 @@ var long1input;
 var lat1input;
 var long2input;
 var lat2input;
-
+var item1, item2, item3;
+var goToNext = 1;
+var distance;
 
 
 function distanceCalculator(long1input, long2input, lat1input, lat2input) {
@@ -68,6 +70,7 @@ function setup() {
   ht.option('00');
   ht.option('01');
   ht.option('02');
+  ht.option('03');
   ht.option('04');
 
   sc.option('01');
@@ -82,7 +85,7 @@ function setup() {
   next1.addImage(next1Img);
   next1.scale = 0.3;
 
-  next3 = createSprite(400, 50, 50, 50);
+  next3 = createSprite(125, 450, 50, 50);
   next3.addImage(next3Img);
   next3.scale = 0.3;
 
@@ -158,8 +161,8 @@ function draw() {
     console.log(long1input);
     console.log(lat2input);
     console.log(long2input);
-    var x = distanceCalculator(long1input,long2input,lat1input,lat2input);
-    console.log(x);
+    distance = distanceCalculator(long1input,long2input,lat1input,lat2input);
+    console.log(distance);
     state = 2;
 
   }
@@ -190,27 +193,75 @@ function draw() {
     lt.position(200, 215)
     ht.position(200, 245)
     sc.position(200, 275)
-
-    if (mousePressedOver(next1)) {
-      console.log(next1);
-      console.log(lt);
-      console.log(ht);
-      console.log(sc);
-      lt.remove('00');
   
-  
-       
-      item1 = lt.value();
-      console.log(item1);
-      item2 = ht.value();
-      console.log(item2);
-      item3 = sc.value();
-      console.log(item3);
-  
-  
-      state = 3;
-    }
     
+    
+  }
+  
+  if (mousePressedOver(next1) && state ===2) {
+    console.log(next1);
+    console.log(lt);
+    console.log(ht);
+    console.log(sc);
+
+
+     
+    item1 = lt.value();
+    console.log(item1);
+    item2 = ht.value();
+    console.log(item2);
+    item3 = sc.value();
+    console.log(item3);
+
+
+    if(item1 ==2 && item2 ==2 && item3==1){
+      console.log("Type-1")
+      width = 450;
+      depth = 1125;
+      goToNext = 1
+     }
+     else if(item1 ==2 && item2 ==0 && item3==1){
+      console.log("Type-1 a")
+      width = 450;
+      depth = 850;
+      goToNext = 1
+     }
+     else if(item1 ==2 && item2 ==1 && item3==1){
+      console.log("Type-1 b")
+      width = 450;
+      depth = 1125;
+      
+      goToNext = 1
+     }
+     else if(item1 ==0 && item2 ==3 && item3==1){
+      console.log("Type-2")
+      width = 650;
+      depth = 1125;
+      goToNext = 1
+     }
+     else if(item1 ==0 && item2 ==4 && item3==1){
+      console.log("Type-3")
+      width = 750;
+      depth = 1125;
+      goToNext = 1
+     }
+     else if(item1 ==0 && item2 ==0 && item3==1){
+      console.log("Type-4")
+      width = 450;
+      depth = 850;
+      goToNext = 1
+     }
+     else {
+       goToNext = 0;
+     }
+
+    if(goToNext === 1){
+    state = 3;
+    }
+    else{
+      console.log("Please enter a valid type")
+    }
+  
   }
 
   
@@ -223,32 +274,23 @@ function draw() {
     lt.remove();
     ht.remove();
     sc.remove();
+    next3.visible = true;
     textSize(18);
     fill("black")
-    next3.visible = true;
-    
     textFont("arial");
     text("Distance between two coordinates-", 80, 100);
-    textSize(18);
-    textFont("arial");
+    text(distance, 380, 100)
+    fill("red")
+    textFont("bold");
     text("Trench details", 80, 150);
+    text("Trench Design Image", 80, 240);
+    fill("black")
     textSize(15);
     textFont("arial");
-    text("Height", 80, 220);
-    textSize(15);
-    textFont("arial");
-    text("Width", 80, 270);
-    textSize(15);
-    textFont("arial");
-    text("Width", 80, 270);
-    textSize(18);
-    textFont("arial");
-    text("trench design image", 80, 300);
-    
-    
-   
-
-
+    text("Depth", 80, 180);
+    text(depth, 130,180);
+    text("Width", 80, 200);
+    text(width, 130,200);
   }
 
   if (mousePressedOver(next3)) {
@@ -270,8 +312,6 @@ function draw() {
     
 
   }
-
-
 
 
   drawSprites();
